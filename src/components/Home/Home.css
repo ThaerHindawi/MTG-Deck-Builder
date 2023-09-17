@@ -1,0 +1,28 @@
+.search {
+    border: 1px solid rgba(255,255,255,0.25);
+    background-color: #242031;
+    color: #D7D7D7;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+    line-height: 1.25;
+    margin: 0;
+    width: 100%;
+    padding: 12px 14px 12px 62px;
+    font-size: 2rem;
+}
+
+.search-btn {
+    display: block;
+    position: absolute;
+    top: 0%;
+    z-index: 500;
+    padding: 2px;
+    height: 100%;
+    border-radius: 0;
+    width: 4rem;
+    background-color: transparent;
+}
+
+.home-search__form {
+    position: relative;
+}
