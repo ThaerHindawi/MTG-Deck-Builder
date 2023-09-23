@@ -20,9 +20,14 @@ function Home() {
     setQuery(e.target.value);
   }
 
+  // async function logout() {
+  //   await fetch();
+  // }
+
   return (
     <main>
       <div className="homepage">
+        {/* <button onClick={logout}>logout</button> */}
         <h1 className="homepage-title">MYG Deck Builder</h1>
 
         <form onSubmit={searchCard} id="form" className="home-search__form">

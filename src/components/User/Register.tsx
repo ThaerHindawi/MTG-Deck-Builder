@@ -1,55 +1,26 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
 import { useNavigate } from "react-router-dom";
-import { checkLogin } from "../../services/checkLogin";
-// import { isLoggedInContext } from "../hooks/useIsLoggedIn";
 
-interface ILoginUser {
+interface IRegisterUser {
   username: string;
   password: string;
+  confirm_password: string;
 }
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
 
-  // const {username, setUsername} = useContext<IUser>(isLoggedInContext)
-
-  const [isLoggedInError, setIsLoggedInError] = useState<string>("");
-
-
-  const [formData, setFormData] = useState<ILoginUser>({
+  const [formData, setFormData] = useState<IRegisterUser>({
     username: "",
     password: "",
+    confirm_password: "",
   });
 
-  // async function checkLogin() {
-  //   const res = await fetch(API_LOCAL_URL("checkLogin"), {
-  //     method: "GET",
-  //     credentials: "include",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-
-  //   const data = await res.json();
-  //   console.log(data);
-  //   setIsLoggedInError(() =>
-  //     data.username
-  //       ? "logged"
-  //       : "You have entered an invalid username or password"
-  //   );
-  //   if (data.username) {
-  //     localStorage.setItem("username", data.username);
-  //     console.log("data.username: " + data.username)
-  //     // setUsername(data.username);
-  //     navigate(`/`);
-  //   }
-  // }
-
+  const [registrationError, setRegistrationError] = useState(null);
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const res = await fetch(API_LOCAL_URL("members/authenticate"), {
+    const res = await fetch(API_LOCAL_URL("members/register"), {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -58,21 +29,26 @@ function Login() {
       credentials: "include",
       body: JSON.stringify(formData),
     });
-
-    console.log(await res.json());
-    checkLogin();
+    const data = await res.json();
+    if (data.success) {
+      navigate(`/login`);
+    } else {
+        console.log(data.error)
+      setRegistrationError(data.error);
+    }
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const newFormData: ILoginUser = { ...formData };
-    newFormData[e.target.id as keyof ILoginUser] = e.target.value;
+    const newFormData: IRegisterUser = { ...formData };
+    newFormData[e.target.id as keyof IRegisterUser] = e.target.value;
+    console.log(newFormData)
     setFormData(newFormData);
   }
 
   return (
     <div className="container">
+      {<p>{registrationError}</p>}
       <div className="row justify-content-md-center">
-        <p>{isLoggedInError}</p>
         <form onSubmit={submit}>
           <div className="form-group mb-2">
             <label>Username</label>
@@ -91,15 +67,25 @@ function Login() {
             <input
               type="password"
               onChange={handleChange}
-              value={formData.password}
               className="form-control"
               id="password"
               placeholder="Enter Password"
             />
           </div>
 
+          <div className="form-group mb-2">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              onChange={handleChange}
+              className="form-control"
+              id="confirm_password"
+              placeholder="Confirm Password"
+            />
+          </div>
+
           <button type="submit" className="btn btn-primary">
-            Login
+            Register
           </button>
         </form>
       </div>
@@ -107,4 +93,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

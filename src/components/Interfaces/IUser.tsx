@@ -1,4 +1,4 @@
 interface IUser {
-    username: string,
-    password: string
+    username?: string,
+    setUsername: Function;
 }
