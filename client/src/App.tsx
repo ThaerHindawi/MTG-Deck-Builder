@@ -14,7 +14,9 @@ import Routes from "./Routes";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import { checkLogin } from "./services/checkLogin";
 function App() {
-  
+  useEffect(() => {
+    checkLogin().then(val => console.log(val))
+  }, []);
 
   return (
     <BrowserRouter>

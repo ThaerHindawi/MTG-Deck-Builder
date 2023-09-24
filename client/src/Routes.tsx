@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Routes as Router,
   Route,
@@ -18,15 +18,29 @@ import { checkLogin } from "./services/checkLogin";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import AddDeck from "./components/Deck/AddDeck";
 import Decks from "./components/Deck/Decks";
+import useToken from "./services/useToken";
 
 type Props = {};
-const localUsername = localStorage.getItem("username");
+
+function wait(ms: number) {
+  let start = Date.now(),
+    now = start;
+  while (now - start < ms) {
+    now = Date.now();
+  }
+}
 
 const PrivateRoutes = () => {
+  
   const { username, setUsername } = useContext<IUser>(isLoggedInContext);
+  
+ 
 
-  checkLogin();
+  console.log(checkLogin())
+  // wait(1000);
 
+  const localUsername = localStorage.getItem("username");
+  console.log("PrivateRoutes: " + localUsername)
   if (!localUsername && !username) return <Navigate to="/login" replace />;
 
   return <Outlet />;
@@ -35,31 +49,38 @@ const PrivateRoutes = () => {
 const Routes = (props: Props) => {
   const { username } = useContext<IUser>(isLoggedInContext);
   // console.log(username)
-  console.log(localUsername);
+  // const { token, setToken } = useToken();
+
+  const localUsername = localStorage.getItem("username");
+  console.log("localUsername: " + localUsername);
+
   return (
     <Router>
-      <Route element={<PrivateRoutes />}>
-        <Route
-          path="decks/new"
-          element={
-            <>
-              <AddDeck />
-            </>
-          }
-        />
-        {["decks/:id?", "decks/member/:id"].map((path) => {
-          return (
-            <Route
-              key={path}
-              path={path}
-              element={
-                <>
-                  <Decks />
-                </>
-              }
-            />
-          );
-        })}
+      <Route element={<PrivateRoutes />}>          
+      
+      <Route
+        path="decks/new"
+        element={
+          <>
+            <AddDeck />
+          </>
+        }
+      />
+    
+    
+      {["decks/:id?", "decks/member/:id"].map((path) => {
+        return (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <>
+                <Decks />
+              </>
+            }
+          />
+        );
+      })}
       </Route>
       <Route path="/" element={<Home />}>
         <Route
@@ -95,6 +116,9 @@ const Routes = (props: Props) => {
           </>
         }
       />
+
+      {/* {!token && <Route path="login" element={<Login setToken={setToken} />} />} */}
+
       <Route
         path="login"
         element={!localUsername && !username ? <Login /> : <Navigate to="/" />}

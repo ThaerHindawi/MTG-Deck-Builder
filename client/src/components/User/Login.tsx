@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { checkLogin } from "../../services/checkLogin";
 // import { isLoggedInContext } from "../hooks/useIsLoggedIn";
 
@@ -9,7 +9,7 @@ interface ILoginUser {
   password: string;
 }
 
-function Login() {
+function Login({setToken}: {setToken?: Function}) {
   const navigate = useNavigate();
 
   // const {username, setUsername} = useContext<IUser>(isLoggedInContext)
@@ -58,8 +58,11 @@ function Login() {
       credentials: "include",
       body: JSON.stringify(formData),
     });
-
-    console.log(await res.json());
+    const data = await res.json()
+    if(!data.success) {
+      setIsLoggedInError("Invalid username or password");
+    }
+    navigate("/");
     checkLogin();
   }
 
