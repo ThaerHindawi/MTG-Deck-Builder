@@ -75,7 +75,8 @@ function Login({setToken}: {setToken?: Function}) {
   }
 
   return (
-    
+    <div className="wrapper">
+
     <div className="form-container">
         <p>{isLoggedInError}</p>
         <form onSubmit={submit}>
@@ -108,7 +109,7 @@ function Login({setToken}: {setToken?: Function}) {
           <p className="message">Not registered? <Link to="/register">Create an account.</Link></p>
           </fieldset>
         </form>
-
+        </div>
         </div>
   );
 }

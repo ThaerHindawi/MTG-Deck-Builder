@@ -26,7 +26,7 @@ function Home() {
 
   return (
     <main>
-      <div className="homepage">
+      <div className="wrapper">
        
         {/* <button onClick={logout}>logout</button> */}
         <h1 className="homepage-title">MTG Deck Builder</h1>

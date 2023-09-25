@@ -47,6 +47,8 @@ function Register() {
   }
 
   return (
+    <div className="wrapper">
+
     <div className="form-container">
       {<p>{registrationError}</p>}
         <form onSubmit={submit}>
@@ -89,6 +91,7 @@ function Register() {
           <p className="message">Already registered? <Link to="/login">Login Here</Link></p>
           </fieldset>
         </form>
+    </div>
     </div>
   );
 }
