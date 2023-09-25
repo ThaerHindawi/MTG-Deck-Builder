@@ -3,6 +3,8 @@ import API_LOCAL_URL from "../../Utils/API_URL";
 import { useLocation, useNavigate } from "react-router-dom";
 import { checkLogin } from "../../services/checkLogin";
 // import { isLoggedInContext } from "../hooks/useIsLoggedIn";
+import { Link } from "react-router-dom";
+import './user.css'
 
 interface ILoginUser {
   username: string;
@@ -73,11 +75,13 @@ function Login({setToken}: {setToken?: Function}) {
   }
 
   return (
-    <div className="container">
-      <div className="row justify-content-md-center">
+    
+    <div className="form-container">
         <p>{isLoggedInError}</p>
         <form onSubmit={submit}>
-          <div className="form-group mb-2">
+          <fieldset>
+            <legend>Member Login</legend>
+            <div className="form-group">
             <label>Username</label>
             <input
               type="text"
@@ -87,9 +91,6 @@ function Login({setToken}: {setToken?: Function}) {
               id="username"
               placeholder="Enter Username"
             />
-          </div>
-
-          <div className="form-group mb-2">
             <label>Password</label>
             <input
               type="password"
@@ -101,12 +102,14 @@ function Login({setToken}: {setToken?: Function}) {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn">
             Login
           </button>
+          <p className="message">Not registered? <Link to="/register">Create an account.</Link></p>
+          </fieldset>
         </form>
-      </div>
-    </div>
+
+        </div>
   );
 }
 

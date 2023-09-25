@@ -18,6 +18,7 @@ import { checkLogin } from "./services/checkLogin";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import AddDeck from "./components/Deck/AddDeck";
 import Decks from "./components/Deck/Decks";
+import Navigation from "./components/Nav/Navigation";
 import useToken from "./services/useToken";
 
 type Props = {};
@@ -56,6 +57,7 @@ const Routes = (props: Props) => {
 
   return (
     <Router>
+      <Route path="/navigation" element={<Navigation />} />
       <Route element={<PrivateRoutes />}>          
       
       <Route

@@ -1,0 +1,70 @@
+form {
+    overflow: hidden;
+}
+
+.form-container {
+    margin: 1em auto;
+    background-color: rgb(33, 33, 33);
+    border-radius: 12px;
+    width: 380px;
+    color: #ddd;
+    text-align: center;
+}
+
+fieldset {
+    margin: 1em;
+    padding: 1em;
+    border-color: rgb(161, 161, 161);
+    border-radius: 12px;
+}
+legend {
+    line-height: 0;
+    padding: 0 12px;
+    color: lime;
+}
+label {
+    padding-right: 1em;
+    display: none;
+}
+
+input {
+    background: transparent;
+    margin: .5em;
+    height: 2.5em;
+    color: lime;
+    padding-left: .5em;
+    font-size: 1.2em;
+    line-height: 0;
+    border: 1px solid gray;
+}
+
+input:focus {
+    border: 1px solid lime;
+    outline: 0;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+.btn {
+    margin: 1em;
+    padding: .5em 2em;
+    background-image: linear-gradient(lime, green);
+    border-radius: 12px;
+    border: none;
+    color: white;
+}
+
+.message {
+    font-size: .9em;
+    color:#aaa;
+}
+
+a {
+    color: lime;
+}

@@ -27,8 +27,9 @@ function Home() {
   return (
     <main>
       <div className="homepage">
+       
         {/* <button onClick={logout}>logout</button> */}
-        <h1 className="homepage-title">MYG Deck Builder</h1>
+        <h1 className="homepage-title">MTG Deck Builder</h1>
 
         <form onSubmit={searchCard} id="form" className="home-search__form">
           <input

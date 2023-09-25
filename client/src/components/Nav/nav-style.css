@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.site-nav {
+    background-color: black;
+    display: flex;
+    justify-content: end;
+    padding-right: 2em;
+    box-shadow: 0 2px 5px lime;
+}
+ul {
+    list-style-type: none;
+    padding: 1em;
+}
+
+li {
+    width: 6em;
+    display: inline-block;
+    text-align: center;
+    padding: 1em;
+    border-radius: 12px;;
+}
+
+li:last-child {
+    border: none;
+}
+.nav-item a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item:hover {
+    background-color: rgba(0, 255, 0, .2);
+    cursor: pointer;
+}
