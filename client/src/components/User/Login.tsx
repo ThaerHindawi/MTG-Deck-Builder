@@ -101,12 +101,14 @@ function Login({setToken}: {setToken?: Function}) {
               id="password"
               placeholder="Enter Password"
             />
-          </div>
 
           <button type="submit" className="btn">
             Login
           </button>
           <p className="message">Not registered? <Link to="/register">Create an account.</Link></p>
+          </div>
+
+          
           </fieldset>
         </form>
         </div>

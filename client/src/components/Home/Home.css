@@ -7,7 +7,7 @@
     line-height: 1.25;
     margin: 0;
     width: 100%;
-    padding: 12px 14px 12px 62px;
+    padding: 12px 14px 12px 66px;
     font-size: 2rem;
 }
 
@@ -27,6 +27,7 @@
     border-radius: 0;
     width: 4rem;
     background-color: transparent;
+    font-size: 2em;
 }
 
 .home-search__form {
