@@ -30,7 +30,8 @@ nav li {
     width: 6em;
     display: inline-block;
     text-align: center;
-    border-radius: 12px;;
+    border-radius: 12px;
+    padding: 5px;
 }
 
 li:last-child {
@@ -39,6 +40,11 @@ li:last-child {
 .nav-item a {
     text-decoration: none;
     color: white;
+}
+
+.nav-item a.active {
+    color: var(--light-green);
+    font-weight: 700;
 }
 
 .nav-item:hover {
