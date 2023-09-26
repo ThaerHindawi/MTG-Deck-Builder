@@ -51,9 +51,8 @@ function Register() {
       <div className="form-container">
         {<p>{registrationError}</p>}
         <form onSubmit={submit}>
-          <fieldset>
-            <legend>Register</legend>
             <div className="form-group">
+              <h2>Register</h2>
               <label>Username</label>
               <input
                 type="text"
@@ -82,14 +81,13 @@ function Register() {
                 id="confirm_password"
                 placeholder="Confirm Password"
               />
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn">
                 Register
               </button>
               <p className="message">
                 Already registered? <Link to="/login">Login Here</Link>
               </p>
             </div>
-          </fieldset>
         </form>
       </div>
     </div>

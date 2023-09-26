@@ -80,9 +80,9 @@ function Login({setToken}: {setToken?: Function}) {
     <div className="form-container">
         <p>{isLoggedInError}</p>
         <form onSubmit={submit}>
-          <fieldset>
-            <legend>Member Login</legend>
+            {/* <legend>Member Login</legend> */}
             <div className="form-group">
+            <h2>Login</h2>
             <label>Username</label>
             <input
               type="text"
@@ -107,9 +107,6 @@ function Login({setToken}: {setToken?: Function}) {
           </button>
           <p className="message">Not registered? <Link to="/register">Create an account.</Link></p>
           </div>
-
-          
-          </fieldset>
         </form>
         </div>
         </div>
