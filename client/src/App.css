@@ -1,8 +1,16 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-green: #61892f;
+  --light-green: #86c232;
+  --dark-gray: #222629;
+  --mid-gray: #2b2d2e;
+  --light-gray: #6b6e70;
+  font-size: 18px;
 }
 
 .logo {

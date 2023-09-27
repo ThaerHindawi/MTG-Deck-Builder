@@ -1,0 +1,72 @@
+form {
+    overflow: hidden;
+}
+
+.form-container {
+    border-radius: 12px;
+    padding: 40px 40px 50px;
+    width: 380px;
+    color: #ddd;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    text-align: center;
+}
+.form-group h2 {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+label {
+    padding-right: 1em;
+    display: none;
+}
+
+input {
+    margin: .5em;
+    height: 2.5em;
+    color: var(--light-green);
+    padding-left: .5em;
+    font-size: 1.2em;
+    line-height: 0;
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+    inset 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+input:focus {
+    border: 1px solid var(--light-green);
+    outline: 0;
+}
+
+input::placeholder {
+    color: #555;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+.btn {
+    margin: 1em;
+    padding: .5em 2em;
+    background-image: linear-gradient(rgb(0, 71, 0), rgb(0, 35, 0));
+    border-radius: 12px;
+    border: none;
+    color: white;
+    box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.05),
+    2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+.message {
+    font-size: .9em;
+    color:#aaa;
+}
+
+a {
+    color: var(--dark-green);
+}

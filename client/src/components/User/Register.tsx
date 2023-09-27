@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import './user.css'
 interface IRegisterUser {
   username: string;
   password: string;
@@ -46,11 +46,12 @@ function Register() {
   }
 
   return (
-    <div className="container">
+    <div className="wrapper">
+    <div className="form-container">
       {<p>{registrationError}</p>}
-      <div className="row justify-content-md-center">
-        <form onSubmit={submit}>
-          <div className="form-group mb-2">
+      <form onSubmit={submit}>
+          <div className="form-group">
+            <h2>Register</h2>
             <label>Username</label>
             <input
               type="text"
@@ -60,9 +61,6 @@ function Register() {
               id="username"
               placeholder="Enter Username"
             />
-          </div>
-
-          <div className="form-group mb-2">
             <label>Password</label>
             <input
               type="password"
@@ -82,14 +80,16 @@ function Register() {
               id="confirm_password"
               placeholder="Confirm Password"
             />
+            <button type="submit" className="btn">
+              Register
+            </button>
+            <p className="message">
+              Already registered? <Link to="/login">Login Here</Link>
+            </p>
           </div>
-
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
-        </form>
-      </div>
+      </form>
     </div>
+  </div>
   );
 }
 

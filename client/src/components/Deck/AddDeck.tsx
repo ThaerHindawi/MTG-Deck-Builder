@@ -2,9 +2,12 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
 import { checkLogin } from "../../services/checkLogin";
 import { useNavigate } from "react-router-dom";
+import PrivateFetch from "../../services/PrivateFetch";
+import { useJwt } from "react-jwt";
 
 function AddDeck() {
-    const navigate = useNavigate();
+  const { isExpired } = useJwt(localStorage.getItem("token") || "");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<IDeck>({
     deck_name: "",
   });
@@ -13,32 +16,34 @@ function AddDeck() {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const res = await fetch(API_LOCAL_URL("decks/new"), {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    console.log(data)
-    if (data.success) {
-        setMessage(data.message);
+    const res = await PrivateFetch("POST", "decks/new", formData);
+
+    console.log(res);
+    if (res.success) {
+      setMessage(res.message);
     } else {
-        setMessage(data.error);
+      setMessage(res.error);
     }
 
-    formData.deck_name = ""
+    formData.deck_name = "";
     setFormData(formData);
-    
   }
+
+  function checkExpiredToken() {
+    if (isExpired) {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  }
+
+  useEffect(() => {
+    checkExpiredToken();
+  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const newFormData: IDeck = { ...formData };
     newFormData[e.target.id as keyof IDeck] = e.target.value;
-    console.log(newFormData)
+    console.log(newFormData);
     setFormData(newFormData);
   }
 
