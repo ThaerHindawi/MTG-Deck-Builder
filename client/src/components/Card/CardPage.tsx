@@ -10,6 +10,8 @@ import { ICard } from "../Interfaces/ICard";
 import "./Card.Page.css";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Props {
   card?: ICard;
@@ -67,12 +69,37 @@ function CardPage({ card: defaultCard }: Props) {
   }
 
   async function AddToDeck() {
-    const res = await PrivateFetch("POST", `decks/${selectValue}/add`, {
-      api_card_id: card.id,
-      card_name: card.name,
-      artwork_url: card.image_uris.normal,
+    if (selectValue) {
+      const res = await PrivateFetch("POST", `decks/${selectValue}/add`, {
+        api_card_id: card.id,
+        card_name: card.name,
+        artwork_url: card.image_uris.normal,
+      });
+      console.log(res);
+      toast.success(`Card ${card.name} has been added successfully`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    toast.error(`You should select your deck first`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
     });
-    console.log(res);
+
   }
 
   function handleChange(e: ChangeEvent<HTMLSelectElement>) {
@@ -81,6 +108,18 @@ function CardPage({ card: defaultCard }: Props) {
 
   return (
     <main>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="card-profile">
         <div className="card-profile__flex">
           <div className="card-image">
@@ -142,7 +181,9 @@ function CardPage({ card: defaultCard }: Props) {
                 name="decks"
                 id="decks"
               >
-                <option key="first_value" value="">Select Your Deck To Add The Card</option>
+                <option key="first_value" value="">
+                  Select Your Deck To Add The Card
+                </option>
                 {decksId.length > 0 &&
                   decksId.map((deck) => {
                     return (

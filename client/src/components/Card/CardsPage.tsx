@@ -8,21 +8,23 @@ interface Props {
 }
 
 function CardsPage({ cards }: Props) {
-    // console.log(cards?.cards[0].image_uris.large)
+  // console.log(cards?.cards[0].image_uris.large)
   return (
     <section className="container">
-    <div className="cards">
-      {cards?.cards.map((card) => {
-        return (
-          <div className="card" id={card.id} key={card.id}>
-            <Link to={`/card/${card.id}`}>
-              <img src={card.image_uris?.normal} alt={card.name} />
-            </Link>
-          </div>
-        );
-      })}
-    </div>
-  </section>
+      <div className="cards">
+        {cards?.cards.map((card) => {
+          if (card.image_uris?.normal) {
+            return (
+              <div className="card" id={card.id} key={card.id}>
+                <Link to={`/card/${card.id}`}>
+                  <img src={card.image_uris?.normal} alt={card.name} />
+                </Link>
+              </div>
+            );
+          }
+        })}
+      </div>
+    </section>
   );
 }
 

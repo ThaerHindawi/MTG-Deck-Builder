@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
 
@@ -23,12 +23,6 @@ function Decks() {
   console.log(location.pathname);
   useEffect(() => {
     handleFetchDecks();
-
-    return () => {
-      // setTimeout(() => {
-      // setMessageDeckDeleted("");
-      // }, 1000);
-    };
   }, [messageDeckDeleted]);
 
   async function handleFetchDecks() {
@@ -71,7 +65,11 @@ function Decks() {
             return (
               <tr key={deck.id.toString()}>
                 <td>{deck.id.toString()}</td>
-                <td>{deck.deck_name}</td>
+                <td>
+                <Link to={`/decks/${deck.id}/cards`}>
+                  {deck.deck_name}
+                </Link>
+                </td>
                 <td>
                   {new Date(deck.date_created * 1000).toLocaleDateString()}
                 </td>

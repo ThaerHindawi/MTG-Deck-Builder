@@ -23,6 +23,7 @@ import { useJwt } from "react-jwt";
 import Navigation from "./components/Nav/Navigation";
 import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
+import FindCards from "./components/Deck/FindCards";
 
 type Props = {};
 
@@ -68,6 +69,7 @@ const Routes = (props: Props) => {
       <Route path="card/:id" element={<CardPage />} />
       <Route path="members" element={<Members />} />
       <Route path="members/:id" element={<Member />} />
+      <Route path="decks/:id/cards" element={<FindCards />} />
 
       <Route
         path="login"
