@@ -21,7 +21,6 @@ import Decks from "./components/Deck/Decks";
 import Navigation from "./components/Nav/Navigation";
 import useToken from "./services/useToken";
 import { useJwt } from "react-jwt";
-import Navigation from "./components/Nav/Navigation";
 import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
 import FindCards from "./components/Deck/FindCards";

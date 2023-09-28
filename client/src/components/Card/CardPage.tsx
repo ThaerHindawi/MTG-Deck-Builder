@@ -202,16 +202,16 @@ function CardPage({ card: defaultCard }: Props) {
             </div>
 
           </div>
-            </ul>
+            
             <button type="submit" className="add-to-deck">Add to Deck</button>
           </div>
           
-          </div>
+          
           
 
          
         </div>
-      </div>
+      
     </main>
   );
 }

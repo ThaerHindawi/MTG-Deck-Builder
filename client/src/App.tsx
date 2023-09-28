@@ -30,7 +30,6 @@ function App() {
       <div className="application">
         <Navigation />
         <AuthProvider>
-          <Navigation />
           <Routes />
         </AuthProvider>
       </div>
