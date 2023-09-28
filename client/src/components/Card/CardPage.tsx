@@ -13,6 +13,8 @@ import { useJwt } from "react-jwt";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import './Card.Page.css'
+
 interface Props {
   card?: ICard;
 }
@@ -125,6 +127,7 @@ function CardPage({ card: defaultCard }: Props) {
           <div className="card-image">
             <img src={card?.image_uris?.normal} alt={card?.name} />
             <div className="card-name">
+
               <h2>{card?.name}</h2>
               <h3>{card?.set_name}</h3>
             </div>
@@ -197,7 +200,16 @@ function CardPage({ card: defaultCard }: Props) {
                 Add to Deck
               </button>
             </div>
+
           </div>
+            </ul>
+            <button type="submit" className="add-to-deck">Add to Deck</button>
+          </div>
+          
+          </div>
+          
+
+         
         </div>
       </div>
     </main>

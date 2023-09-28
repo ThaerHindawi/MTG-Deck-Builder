@@ -1,5 +1,4 @@
 const express = require("express");
-const sessions = require("express-session");
 var cors = require("cors");
 
 const app = express();
@@ -31,13 +30,13 @@ app.get("/decks/:deck_id", database.getDeckByID);
 app.get("/decks/:deck_id/cards", database.getCardsByDeckID);
 app.get("/decks/member/:memberid", database.getDecksByMemberID);
 
-app.get("/decks/:deck_id/delete", database.deleteDeck);
-app.get("/decks/:deck_id/cards/:card_id/delete", database.deleteCardFromDeck);
+app.get("/decks/:deck_id/delete", database.authenticateToken, database.deleteDeck);
+app.get("/decks/:deck_id/cards/:card_id/delete", database.authenticateToken, database.deleteCardFromDeck);
 
 app.post("/members/register", database.registerUser);
 app.post("/members/authenticate", database.authenticateUser);
-app.post("/decks/new", database.createDeck);
-app.post("/decks/:deck_id/add", database.addCardToDeck);
+app.post("/decks/new", database.authenticateToken, database.createDeck);
+app.post("/decks/:deck_id/add", database.authenticateToken, database.addCardToDeck);
 
 app.get("/auth/logout", (request, response) => {
   request.session.destroy();
