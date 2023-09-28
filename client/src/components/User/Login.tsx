@@ -1,20 +1,21 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { useLocation, useNavigate } from "react-router-dom";
-import { checkLogin } from "../../services/checkLogin";
-// import { isLoggedInContext } from "../hooks/useIsLoggedIn";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import PrivateFetch from "../../services/PrivateFetch";
 import './user.css'
+import { isLoggedInContext } from "../../hooks/useIsLoggedIn";
 
 interface ILoginUser {
   username: string;
   password: string;
 }
 
-function Login({setToken}: {setToken?: Function}) {
+// {setToken}: {setToken?: Function}
+function Login() {
   const navigate = useNavigate();
 
-  // const {username, setUsername} = useContext<IUser>(isLoggedInContext)
+  const {token, setToken} = useContext<IToken>(isLoggedInContext)
 
   const [isLoggedInError, setIsLoggedInError] = useState<string>("");
 
@@ -24,48 +25,18 @@ function Login({setToken}: {setToken?: Function}) {
     password: "",
   });
 
-  // async function checkLogin() {
-  //   const res = await fetch(API_LOCAL_URL("checkLogin"), {
-  //     method: "GET",
-  //     credentials: "include",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //   });
-
-  //   const data = await res.json();
-  //   console.log(data);
-  //   setIsLoggedInError(() =>
-  //     data.username
-  //       ? "logged"
-  //       : "You have entered an invalid username or password"
-  //   );
-  //   if (data.username) {
-  //     localStorage.setItem("username", data.username);
-  //     console.log("data.username: " + data.username)
-  //     // setUsername(data.username);
-  //     navigate(`/`);
-  //   }
-  // }
-
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const res = await fetch(API_LOCAL_URL("members/authenticate"), {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json()
-    if(!data.success) {
+    const res = await PrivateFetch("POST", "members/authenticate", formData);
+    if(!res.success) {
       setIsLoggedInError("Invalid username or password");
+      return;
     }
+
+    localStorage.setItem("token", res.access_token);
+    setToken(res.access_token);
+    window.location.reload();
     navigate("/");
-    checkLogin();
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

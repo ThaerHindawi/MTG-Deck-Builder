@@ -41,7 +41,7 @@ function Search() {
 
   return (
     <>
-      <CardsPage cards={cards} />
+     {cards?.cards ? <CardsPage cards={cards} /> : <p>No cards In This Page</p>} 
     </>
   );
 }

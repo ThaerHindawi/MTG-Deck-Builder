@@ -4,9 +4,9 @@ type Props = {
   children?: ReactNode;
 };
 
-export const isLoggedInContext = createContext<IUser>({
-  username: "",
-  setUsername: () => {},
+export const isLoggedInContext = createContext<IToken>({
+  token: "",
+  setToken: () => {},
 });
 
 export function useIsLoggedIn() {
@@ -19,12 +19,11 @@ export function useIsLoggedIn() {
   return user;
 }
 
-export  function AuthProvider({ children }: Props) {
-  const [username, setUsername] = useState("");
+export function AuthProvider({ children }: Props) {
+  const [token, setToken] = useState();
   return (
-    <isLoggedInContext.Provider value={{ username, setUsername }}>
+    <isLoggedInContext.Provider value={{ token, setToken }}>
       {children}
     </isLoggedInContext.Provider>
   );
 }
-

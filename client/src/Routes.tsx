@@ -20,122 +20,66 @@ import AddDeck from "./components/Deck/AddDeck";
 import Decks from "./components/Deck/Decks";
 import Navigation from "./components/Nav/Navigation";
 import useToken from "./services/useToken";
+import { useJwt } from "react-jwt";
+import Navigation from "./components/Nav/Navigation";
+import Members from "./components/Members/Members";
+import Member from "./components/Members/Member";
+import FindCards from "./components/Deck/FindCards";
 
 type Props = {};
 
-function wait(ms: number) {
-  let start = Date.now(),
-    now = start;
-  while (now - start < ms) {
-    now = Date.now();
-  }
-}
-
 const PrivateRoutes = () => {
-  
-  const { username, setUsername } = useContext<IUser>(isLoggedInContext);
-  
- 
+  // const { username, setUsername } = useContext<IUser>(isLoggedInContext);
+  let localToken = localStorage.getItem("token");
 
-  console.log(checkLogin())
-  // wait(1000);
-
-  const localUsername = localStorage.getItem("username");
-  console.log("PrivateRoutes: " + localUsername)
-  if (!localUsername && !username) return <Navigate to="/login" replace />;
+  const { isExpired } = useJwt(localToken || "");
+  // console.log("PrivateRoutes: " + localToken);
+  if (isExpired) {
+    localStorage.removeItem("token");
+    localToken = null;
+  }
+  if (!localToken) return <Navigate to="/login" replace />;
 
   return <Outlet />;
 };
 
 const Routes = (props: Props) => {
-  const { username } = useContext<IUser>(isLoggedInContext);
+  // const { username } = useContext<IUser>(isLoggedInContext);
+  let localToken = localStorage.getItem("token");
+  const { isExpired } = useJwt(localToken || "");
+  if (isExpired) {
+    localStorage.removeItem("token");
+    localToken = null;
+  }
   // console.log(username)
   // const { token, setToken } = useToken();
 
-  const localUsername = localStorage.getItem("username");
-  console.log("localUsername: " + localUsername);
-
   return (
     <Router>
-      <Route path="/navigation" element={<Navigation />} />
-      <Route element={<PrivateRoutes />}>          
-      
-      <Route
-        path="decks/new"
-        element={
-          <>
-            <AddDeck />
-          </>
-        }
-      />
-    
-    
-      {["decks/:id?", "decks/member/:id"].map((path) => {
-        return (
-          <Route
-            key={path}
-            path={path}
-            element={
-              <>
-                <Decks />
-              </>
-            }
-          />
-        );
-      })}
+      <Route element={<PrivateRoutes />}>
+        <Route path="decks/new" element={<AddDeck />} />
       </Route>
-      <Route path="/" element={<Home />}>
-        <Route
-          path="/home"
-          element={
-            <>
-              <Home />
-            </>
-          }
-        />
-      </Route>
-      <Route
-        path="search"
-        element={
-          <>
-            <Search />
-          </>
-        }
-      />
-      <Route
-        path="cards/:number"
-        element={
-          <>
-            <CardsPage />
-          </>
-        }
-      />
-      <Route
-        path="card/:id"
-        element={
-          <>
-            <CardPage />
-          </>
-        }
-      />
 
-      {/* {!token && <Route path="login" element={<Login setToken={setToken} />} />} */}
+      {["decks/:id?", "decks/member/:id"].map((path) => {
+        return <Route key={path} path={path} element={<Decks />} />;
+      })}
+      <Route path="/" element={<Home />}>
+        <Route path="/home" element={<Home />} />
+      </Route>
+      <Route path="search" element={<Search />} />
+      <Route path="cards/:number" element={<CardsPage />} />
+      <Route path="card/:id" element={<CardPage />} />
+      <Route path="members" element={<Members />} />
+      <Route path="members/:id" element={<Member />} />
+      <Route path="decks/:id/cards" element={<FindCards />} />
 
       <Route
         path="login"
-        element={!localUsername && !username ? <Login /> : <Navigate to="/" />}
+        element={!localToken ? <Login /> : <Navigate to="/" replace />}
       />
       <Route
         path="register"
-        element={
-          localUsername ? (
-            <Navigate to="/" />
-          ) : (
-            <>
-              <Register />
-            </>
-          )
-        }
+        element={!localToken ? <Register /> : <Navigate to="/" replace />}
       />
     </Router>
   );
