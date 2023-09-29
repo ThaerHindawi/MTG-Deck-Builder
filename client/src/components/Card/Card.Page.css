@@ -103,3 +103,8 @@ strong {
     box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.05),
     inset 2px 2px 6px rgba(0, 0, 0, 0.8);
   }
+
+  .keyword {
+    display: inline-block;
+    margin-right: 8px;
+  }

@@ -164,10 +164,11 @@ function CardPage({ card: defaultCard }: Props) {
                   <strong>Language: </strong> {card?.lang}
                 </li>
                 <div className="keywords">
+                  <strong>Keywords: </strong>
                   {card?.keywords.map((keyword) => {
                     return (
                       <span key={keyword} className="keyword">
-                        <strong>Keywords: </strong> {keyword}
+                      {keyword } 
                       </span>
                     );
                   })}
@@ -205,8 +206,8 @@ function CardPage({ card: defaultCard }: Props) {
                 <div className="price-container">
               <ul className="list-details">
                 <li><strong>USD: </strong>$ {card?.prices.usd}</li>
-                <li><strong>EUR: </strong>$ {card?.prices.eur}</li>
-                <li><strong>TIX: </strong>$ {card?.prices.tix}</li>
+                <li><strong>EUR: </strong>&euro; {card?.prices.eur}</li>
+                <li><strong>TIX: </strong> {card?.prices.tix}</li>
               </ul>
           </div>
               <h3>Links to purchase</h3>
