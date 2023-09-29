@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import { ICard } from "../Interfaces/ICard";
 import "./Card.Page.css";
 import PrivateFetch from "../../services/PrivateFetch";
@@ -173,7 +173,7 @@ function CardPage({ card: defaultCard }: Props) {
                   })}
                 </div>
               </ul>
-              Your Decks
+              <h4>Your Decks</h4>
               <select
                 value={selectValue}
                 onChange={handleChange}
@@ -197,6 +197,22 @@ function CardPage({ card: defaultCard }: Props) {
                 Add to Deck
               </button>
             </div>
+          </div>
+          <div className="price-details">
+            <h3>Card Pricing</h3>
+                <div className="price-container">
+              <ul className="list-details">
+                <li><strong>USD: </strong>$ {card?.prices.usd}</li>
+                <li><strong>EUR: </strong>$ {card?.prices.eur}</li>
+                <li><strong>TIX: </strong>$ {card?.prices.tix}</li>
+              </ul>
+          </div>
+              <h3>Links to purchase</h3>
+              <ul className="list-details">
+                <li><a href={card?.purchase_uris.tcgplayer} target="_blank">tcgplayer</a></li>
+                <li><a href={card?.purchase_uris.cardhoarder} target="_blank">cardhoarder</a></li>
+                <li><a href={card?.purchase_uris.cardmarket} target="_blank">cardmarket</a></li>
+              </ul>
           </div>
         </div>
       </div>

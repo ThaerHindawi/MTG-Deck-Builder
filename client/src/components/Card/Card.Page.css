@@ -11,6 +11,7 @@
 }
 
 .card-name {
+  max-width: 20em;
   text-align: center;
   color: var(--light-gray);
 }
@@ -24,7 +25,6 @@
 }
 .detail-container {
   height: 100%;
-  margin-top: 1em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,7 +55,7 @@
   background-image: linear-gradient(var(--light-green), var(--dark-green));
   margin-top: 2em;
   border: none;
-  width: 100%;
+  width: 95%;
 }
 
 .add-to-deck:hover {
@@ -68,4 +68,11 @@
 
 strong {
   color: var(--dark-green);
+}
+
+.price-container li{
+  padding-left: 10px;
+}
+.price-container li:nth-child(odd) {
+  background-color: var(--mid-gray);
 }
