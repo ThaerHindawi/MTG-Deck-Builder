@@ -174,6 +174,7 @@ function CardPage({ card: defaultCard }: Props) {
                 </div>
               </ul>
               <h4>Your Decks</h4>
+              <div id="deck-container">
               <select
                 value={selectValue}
                 onChange={handleChange}
@@ -196,6 +197,7 @@ function CardPage({ card: defaultCard }: Props) {
               <button onClick={AddToDeck} type="button" className="add-to-deck">
                 Add to Deck
               </button>
+              </div>
             </div>
           </div>
           <div className="price-details">
@@ -209,9 +211,9 @@ function CardPage({ card: defaultCard }: Props) {
           </div>
               <h3>Links to purchase</h3>
               <ul className="list-details">
-                <li><a href={card?.purchase_uris.tcgplayer} target="_blank">tcgplayer</a></li>
-                <li><a href={card?.purchase_uris.cardhoarder} target="_blank">cardhoarder</a></li>
-                <li><a href={card?.purchase_uris.cardmarket} target="_blank">cardmarket</a></li>
+                <li>Tcgplayer.com: <a href={card?.purchase_uris.tcgplayer} target="_blank">buy card</a></li>
+                <li>Cardhoarder.com: <a href={card?.purchase_uris.cardhoarder} target="_blank">buy card</a></li>
+                <li>Cardmarket.com: <a href={card?.purchase_uris.cardmarket} target="_blank">buy card</a></li>
               </ul>
           </div>
         </div>
