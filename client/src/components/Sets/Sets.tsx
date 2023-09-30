@@ -25,11 +25,11 @@ function Sets() {
   }
 
   return (
-    <>
+    <div className="sets">
       {isLoading ? (
         <Loader />
       ) : (
-        <table>
+        <table className="sets-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -44,7 +44,7 @@ function Sets() {
               return (
                 <tr key={set.id}>
                   <td>
-                    <Link to={`/search?order=set&q=e:${set.code}`}>
+                    <Link className="set-name" to={`/search?order=set&q=e:${set.code}`}>
                       <img
                         className="set-icon"
                         src={set.icon_svg_uri}
@@ -63,7 +63,7 @@ function Sets() {
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 }
 
