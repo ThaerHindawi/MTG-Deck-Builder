@@ -14,11 +14,7 @@ form {
 .form-group {
     text-align: center;
 }
-.form-group h2 {
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-}
+
 
 label {
     padding-right: 1em;
@@ -62,6 +58,9 @@ input:focus::placeholder {
     2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
+.btn:hover {
+    background-image: linear-gradient(rgb(0, 91, 0), rgb(0, 59, 0));
+}
 .message {
     font-size: .9em;
     color:#aaa;
