@@ -1,0 +1,41 @@
+.decks-table {
+    width: 666px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+th {
+    background-color: var(--dark-gray);
+    padding: 6px 0;
+    text-shadow: 2px 1px #000;
+}
+tr {
+    height: 70px;
+    border-top: 1px dotted #fff;
+}
+tr:nth-child(odd) {
+    background-color: var(--mid-gray);
+}
+td {
+    text-align: center;
+}
+
+.add-deck-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 40px 40px 50px;
+    color: #ddd;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.form-group h2 {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+
 import "./nav-style.css";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useContext, useState } from "react";
@@ -63,3 +64,4 @@ export default function Navigation() {
     </header>
   );
 }
+

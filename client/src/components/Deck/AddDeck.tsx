@@ -4,6 +4,7 @@ import { checkLogin } from "../../services/checkLogin";
 import { useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
+import "./decks.css"
 
 function AddDeck() {
   const { isExpired } = useJwt(localStorage.getItem("token") || "");
@@ -48,27 +49,27 @@ function AddDeck() {
   }
 
   return (
-    <div className="container">
+    <div className="wrapper">
       {<p>{message}</p>}
-      <div className="row justify-content-md-center">
+      <div className="add-deck-container">
+        <div className="form-group">
         <form onSubmit={submit}>
-          <div className="form-group mb-2">
+        <h2>Create New Deck</h2>
             <label>Deck Name</label>
             <input
               type="text"
               onChange={handleChange}
               value={formData.deck_name}
-              className="form-control"
               id="deck_name"
-              placeholder="Enter deck_name"
+              placeholder="Enter deck name"
             />
-          </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn">
             Add Deck
           </button>
         </form>
+        </div>
+        </div>
       </div>
-    </div>
   );
 }
 

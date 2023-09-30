@@ -1,7 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
+
 import { Link, useNavigate } from "react-router-dom";
 import './user.css'
+
 interface IRegisterUser {
   username: string;
   password: string;
@@ -33,7 +35,7 @@ function Register() {
     if (data.success) {
       navigate(`/login`);
     } else {
-        console.log(data.error)
+      console.log(data.error);
       setRegistrationError(data.error);
     }
   }
@@ -41,12 +43,13 @@ function Register() {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const newFormData: IRegisterUser = { ...formData };
     newFormData[e.target.id as keyof IRegisterUser] = e.target.value;
-    console.log(newFormData)
+    console.log(newFormData);
     setFormData(newFormData);
   }
 
   return (
     <div className="wrapper">
+
     <div className="form-container">
       {<p>{registrationError}</p>}
       <form onSubmit={submit}>
@@ -88,6 +91,8 @@ function Register() {
             </p>
           </div>
       </form>
+
+     
     </div>
   </div>
   );
