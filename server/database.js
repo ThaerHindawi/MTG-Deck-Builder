@@ -11,7 +11,7 @@ const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "deck_builder",
-  password: "k3R7zE08VXidZr4b6L",
+  password: "postgres",
   port: 5432,
 });
 
@@ -200,7 +200,7 @@ const authenticateUser = async (request, response) => {
 
 const getDecks = async (request, response) => {
   try {
-    const results = await pool.query("SELECT * FROM decks ORDER BY views DESC");
+    const results = await pool.query("SELECT * FROM decks ORDER BY id ASC");
 
     if (results.rows.length === 0) {
       return response.json({ error: "No decks available to display." });
