@@ -1,0 +1,4 @@
+.set-icon {
+    width: 2rem;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(229deg) brightness(106%) contrast(108%);
+}

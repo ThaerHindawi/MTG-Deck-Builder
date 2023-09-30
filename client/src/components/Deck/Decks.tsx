@@ -59,7 +59,9 @@ function Decks() {
             <th>Deck Name</th>
             <th>Date created</th>
             <th>Views</th>
+            {decodedToken?.member_id && (
             <th>Delete</th>
+            )}
           </tr>
         </thead>
         <tbody>

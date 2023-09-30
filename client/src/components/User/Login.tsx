@@ -1,7 +1,6 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { checkLogin } from "../../services/checkLogin";
 import PrivateFetch from "../../services/PrivateFetch";
 import './user.css'
 import { isLoggedInContext } from "../../hooks/useIsLoggedIn";

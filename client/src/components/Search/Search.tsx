@@ -2,20 +2,31 @@ import { useEffect, useState } from "react";
 import CardsPage from "../Card/CardsPage";
 import { useSearchParams } from "react-router-dom";
 import { ICards } from "../Interfaces/ICards";
+import Loader from "../Loader/Loader";
 
 function Search() {
   let [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get("q") || "";
   const pageNumber: number = parseInt(searchParams.get("page") || "") || 1;
-
   const [cards, setCards] = useState<ICards>();
   const [currentPage, setCurrentPage] = useState<number>(
     pageNumber <= 0 ? 1 : pageNumber
   );
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const API_URL = (query: string = "", pageNumber: number = 1) => {
-    return `https://api.scryfall.com/cards/search?format=json&order=name&page=${pageNumber}&q=${encodeURIComponent(query)}`;
+    let params = "";
+    let order = "name";
+    if (searchParams.get("order") === "set") {
+      params = "unique=prints";
+      order = "set";
+    }
+    console.log(params);
+    return `https://api.scryfall.com/cards/search?include_extras=true&include_variations=true&format=json&order=${order}&page=${pageNumber}&q=${encodeURIComponent(
+      query
+    )}&${params}`;
   };
 
   useEffect(() => {
@@ -34,6 +45,7 @@ function Search() {
       console.log(transformedCards);
 
       setCards(transformedCards);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -41,7 +53,21 @@ function Search() {
 
   return (
     <>
-     {cards?.cards ? <CardsPage cards={cards} searchParams= {searchParams} setSearchParams={setSearchParams} /> : <p>No cards In This Page</p>} 
+      {isLoading? (
+        <Loader />
+      ) : (
+        <>
+          {cards?.cards ? (
+            <CardsPage
+              cards={cards}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
+            />
+          ) : (
+            <p>No cards In This Page</p>
+          )}
+        </>
+      )}
     </>
   );
 }

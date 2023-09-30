@@ -12,7 +12,6 @@ import { useContext, useEffect, useState } from "react";
 // import { AuthProvider } from "./components/hooks/useIsLoggedIn";
 import Routes from "./Routes";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
-import { checkLogin } from "./services/checkLogin";
 import Navigation from "./components/Nav/Navigation";
 function App() {
   const { token, setToken } = useContext<IToken>(isLoggedInContext);

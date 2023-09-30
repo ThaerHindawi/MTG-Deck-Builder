@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { checkLogin } from "../../services/checkLogin";
 import { useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
