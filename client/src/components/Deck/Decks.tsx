@@ -3,6 +3,7 @@ import API_LOCAL_URL from "../../Utils/API_URL";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
+import "./decks.css"
 
 interface IDeck {
   id: number;
@@ -50,12 +51,12 @@ function Decks() {
   }
 
   return (
-    <div className="container">
+    <div className="wrapper">
       <p>{messageDeckDeleted}</p>
-      <table style={{ border: "1px solid black", borderCollapse: "collapse" }}>
+      <table className="decks-table">
         <thead>
           <tr>
-            <th>id</th>
+            <th>Deck Id</th>
             <th>Deck Name</th>
             <th>Date created</th>
             <th>Views</th>
@@ -69,7 +70,7 @@ function Decks() {
             return (
               <tr key={deck.id.toString()}>
                 <td>{deck.id.toString()}</td>
-                <td>
+                <td className="deck-name">
                 <Link to={`/decks/${deck.id}/cards`}>
                   {deck.deck_name}
                 </Link>
@@ -82,7 +83,7 @@ function Decks() {
                 </td>
                 <td>
                   {decodedToken?.member_id === deck.created_by && (
-                    <button onClick={() => deleteDeck(deck.id, deck.deck_name)}>
+                    <button className="btn" onClick={() => deleteDeck(deck.id, deck.deck_name)}>
                       delete
                     </button>
                   )}

@@ -1,6 +1,7 @@
-import "./App.css";
-import Home from "./components/Home/Home";
+import './App.css'
+import './index.css'
 import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/Home/Home";
 import CardPage from "./components/Card/CardPage";
 import Search from "./components/Search/Search";
 import CardsPage from "./components/Card/CardsPage";
@@ -13,6 +14,7 @@ import { useContext, useEffect, useState } from "react";
 import Routes from "./Routes";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import Navigation from "./components/Nav/Navigation";
+
 function App() {
   const { token, setToken } = useContext<IToken>(isLoggedInContext);
 
@@ -24,9 +26,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="application">
+        <Navigation />
         <AuthProvider>
-          <Navigation />
           <Routes />
         </AuthProvider>
       </div>

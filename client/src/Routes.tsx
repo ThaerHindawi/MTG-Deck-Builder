@@ -17,12 +17,13 @@ import API_LOCAL_URL from "./Utils/API_URL";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import AddDeck from "./components/Deck/AddDeck";
 import Decks from "./components/Deck/Decks";
-import { useJwt } from "react-jwt";
 import Navigation from "./components/Nav/Navigation";
+import { useJwt } from "react-jwt";
 import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
 import FindCards from "./components/Deck/FindCards";
 import Sets from "./components/Sets/Sets";
+import ContactPage from "./components/Contact/ContactPage";
 
 type Props = {};
 
@@ -57,6 +58,7 @@ const Routes = (props: Props) => {
       <Route element={<PrivateRoutes />}>
         <Route path="decks/new" element={<AddDeck />} />
       </Route>
+
       {["decks/:id?", "decks/member/:id"].map((path) => {
         return <Route key={path} path={path} element={<Decks />} />;
       })}
@@ -70,6 +72,7 @@ const Routes = (props: Props) => {
       <Route path="members/:id" element={<Member />} />
       <Route path="decks/:id/cards" element={<FindCards />} />
       <Route path="sets" element={<Sets />} />
+      <Route path="contact" element={<ContactPage />} />
 
       <Route
         path="login"
