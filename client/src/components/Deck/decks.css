@@ -10,6 +10,7 @@ th {
     background-color: var(--dark-gray);
     padding: 6px 0;
     text-shadow: 2px 1px #000;
+    text-transform: uppercase;
 }
 tr {
     height: 70px;

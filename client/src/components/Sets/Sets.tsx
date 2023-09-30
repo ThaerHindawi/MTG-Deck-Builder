@@ -26,24 +26,25 @@ function Sets() {
 
   return (
     <>
+    <div className="wrapper">
       {isLoading ? (
         <Loader />
       ) : (
-        <table>
+        <table className="sets-table">
           <thead>
-            <tr>
+            <tr className="table-header">
               <th>Name</th>
-              <th>CARDS</th>
-              <th>RELEASED DATE</th>
-              <th>CODE</th>
-              <th>SET TYPE</th>
+              <th>Cards</th>
+              <th>Release Date</th>
+              <th>Code</th>
+              <th>Set Type</th>
             </tr>
           </thead>
           <tbody>
             {sets?.map((set) => {
               return (
                 <tr key={set.id}>
-                  <td>
+                  <td className="name-col">
                     <Link to={`/search?order=set&q=e:${set.code}`}>
                       <img
                         className="set-icon"
@@ -62,7 +63,9 @@ function Sets() {
             })}
           </tbody>
         </table>
+        
       )}
+      </div>
     </>
   );
 }
