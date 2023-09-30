@@ -14,11 +14,7 @@ form {
 .form-group {
     text-align: center;
 }
-.form-group h2 {
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-}
+
 
 label {
     padding-right: 1em;
