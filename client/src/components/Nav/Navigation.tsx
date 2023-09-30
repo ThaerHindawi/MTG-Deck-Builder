@@ -50,8 +50,8 @@ export default function Navigation() {
               </li>
             </>
           ) : (
-            <li onClick={logout} className="nav-item">
-              <NavLink to="/login">logout</NavLink>
+            <li onClick={logout}>
+              <NavLink to="/login"><button className="btn-logout">Logout</button></NavLink>
             </li>
           )}
         </ul>

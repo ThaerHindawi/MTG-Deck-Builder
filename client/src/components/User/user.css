@@ -62,6 +62,9 @@ input:focus::placeholder {
     2px 2px 6px rgba(0, 0, 0, 0.8);
 }
 
+.btn:hover {
+    background-image: linear-gradient(rgb(0, 91, 0), rgb(0, 59, 0));
+}
 .message {
     font-size: .9em;
     color:#aaa;
