@@ -24,6 +24,7 @@ import Navigation from "./components/Nav/Navigation";
 import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
 import FindCards from "./components/Deck/FindCards";
+import ContactPage from "./components/Contact/ContactPage";
 
 type Props = {};
 
@@ -70,6 +71,7 @@ const Routes = (props: Props) => {
       <Route path="members" element={<Members />} />
       <Route path="members/:id" element={<Member />} />
       <Route path="decks/:id/cards" element={<FindCards />} />
+      <Route path="contact" element={<ContactPage />} />
 
       <Route
         path="login"
