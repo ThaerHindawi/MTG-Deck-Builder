@@ -23,7 +23,7 @@ import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
 import FindCards from "./components/Deck/FindCards";
 import Sets from "./components/Sets/Sets";
-import ContactPage from "./components/Contact/ContactPage";
+import AboutPage from "./components/About/AboutPage";
 
 type Props = {};
 
@@ -50,8 +50,7 @@ const Routes = (props: Props) => {
     localStorage.removeItem("token");
     localToken = null;
   }
-  // console.log(username)
-  // const { token, setToken } = useToken();
+ 
 
   return (
     <Router>
@@ -72,7 +71,7 @@ const Routes = (props: Props) => {
       <Route path="members/:id" element={<Member />} />
       <Route path="decks/:id/cards" element={<FindCards />} />
       <Route path="sets" element={<Sets />} />
-      <Route path="contact" element={<ContactPage />} />
+      <Route path="about" element={<AboutPage />} />
 
       <Route
         path="login"

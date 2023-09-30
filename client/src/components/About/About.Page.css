@@ -1,0 +1,70 @@
+.contact-container {
+    max-width: 1152px;
+    margin: auto;
+    padding: 2.5rem 0;
+    text-align: center;
+}
+
+.page-heading {
+    margin-bottom: 20px;
+}
+
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    justify-content: center;
+}
+
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 25%;
+    gap: 10px;
+}
+
+.card-contact {
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dev-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dev-socials {
+    display: flex;
+    flex-direction: row;
+}
+
+.sub {
+    font-size: 16px;
+}
+
+.implementation {
+    opacity: 0.7;
+}
+
+.card-contact img {
+    border-radius: 100px;
+    width: 150px;
+    height: 150px;
+}
+
+.social-btn {
+    margin: 0.25em;
+    padding: 0.25em 1em;
+    background-image: linear-gradient(rgb(0, 71, 0), rgb(0, 35, 0));
+    border-radius: 12px;
+    border: none;
+    color: white;
+    box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.05), 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
