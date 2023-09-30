@@ -1,14 +1,14 @@
 const Pool = require("pg").Pool;
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const ACCESS_TOKEN_SECRET = 'Sq94mB%JK3tguq@e3J!Atyca6@fs&fVR';
+const ACCESS_TOKEN_SECRET = "Sq94mB%JK3tguq@e3J!Atyca6@fs&fVR";
 const databaseName = "deck_builder";
 
 const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "deck_builder",
-  password: "k3R7zE08VXidZr4b6L", // change the password to postgres
+  password: "thaer12345", // change the password to postgres
   port: 5432,
 });
 
@@ -34,13 +34,40 @@ pool.query(
 
 pool.query('ALTER TABLE IF EXISTS "members" ADD UNIQUE ("username");');
 
+// TOKEN FUNCTIONS
+
+const authenticateToken = async (request, response, next) => {
+  const authHeader = request.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  // console.log("authHeader: " + authHeader)
+  if (token == null) {
+    return response.status(401).json({ success: false, error: 'Not logged in.' });
+  }
+
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (error, decoded) => {
+    if (error) {
+      return response.status(403).json({ success: false, error: 'An error has occurred ' + error });
+    }
+
+    request.member_id = decoded.member_id;
+    request.username = decoded.username;
+    next();
+  });
+};
+
 // MEMBER FUNCTIONS
 
 const logged_in = async (request, response) => {
-  if (request.session.memberid) {
-    return response.json({ loggedIn: true, user: {id: request.session.memberid, username: request.session.username} })
-  }
-  return response.json({ loggedIn: false, user: {} })
+  const authHeader = request.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  
+  console.log(token)
+  if (token === null) return response.status(401).json({ loggedIn: false });
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (error, user) => {
+    if (error) return response.status(403).json({ loggedIn: false });
+    return response.json({ loggedIn: true });
+  });
 };
 
 const getMembers = async (request, response) => {
@@ -63,7 +90,6 @@ const getMembers = async (request, response) => {
 const getMemberByID = async (request, response) => {
   try {
     const memberID = parseInt(request.params.member_id);
-
     // Verify that a valid deck ID was supplied.
     if (isNaN(memberID)) {
       return response.status(400).json({
@@ -149,13 +175,9 @@ const authenticateUser = async (request, response) => {
       return response.json({ success: false, error: "Incorrect Password." });
     }
 
-    const accessToken = jwt.sign(
-      { "member_id": result.rows[0].member_id, "username": username},
-      ACCESS_TOKEN_SECRET,
-      { expiresIn: '86400s' }
-    )
-    
-    response.json({ success: true, accessToken });
+    const accessToken = jwt.sign({ member_id: result.rows[0].id, username: username}, ACCESS_TOKEN_SECRET, { expiresIn: '12000000s'});
+    response.json({ success: true, access_token: accessToken });
+
   } catch (error) {
     console.error(error);
     response
@@ -184,6 +206,7 @@ const getDecks = async (request, response) => {
 const getDeckByID = async (request, response) => {
   try {
     const deckID = parseInt(request.params.deck_id);
+    console.log(request.params.deck_id)
 
     // Verify that a valid deck ID was supplied.
     if (isNaN(deckID)) {
@@ -243,19 +266,11 @@ const createDeck = async (request, response) => {
   const { deck_name } = request.body;
 
   try {
-    // Check if member is logged in.
-    if (!request.session.memeberid) {
-      return response.json({
-        success: false,
-        error: "You must be logged in to create a deck.",
-      });
-    }
-
     // Insert deck into database.
     const dateCreated = Math.floor(Date.now() / 1000);
     const result = await pool.query(
       "INSERT INTO decks (created_by, deck_name, date_created) VALUES ($1, $2, $3)",
-      [request.session.memberid, deck_name, dateCreated]
+      [request.member_id, deck_name, dateCreated]
     );
     response
       .status(200)
@@ -277,11 +292,19 @@ const deleteDeck = async (request, response) => {
       });
     }
 
-    // Check if member is logged in.
-    if (!request.session.memeberid) {
+    // Check if the deck exists in database and member_id owns that deck.
+    const createdBy = await pool.query(
+      "SELECT created_by FROM decks WHERE id = $1",
+      [deckID]
+    );
+
+    if (
+      createdBy.rows.length === 0 ||
+      createdBy.rows[0].created_by !== request.member_id
+    ) {
       return response.json({
         success: false,
-        error: "You must be logged in to delete a deck.",
+        error: "You do not own this deck.",
       });
     }
 
@@ -335,14 +358,6 @@ const addCardToDeck = async (request, response) => {
   const { api_card_id, card_name, artwork_url } = request.body;
 
   try {
-    // Check if the member is logged in.
-    if (!request.session.memberid) {
-      return response.json({
-        success: false,
-        error: "You must be logged in to add a card to a deck.",
-      });
-    }
-
     // Check if the deck exists in database and member_id owns that deck.
     const createdBy = await pool.query(
       "SELECT created_by FROM decks WHERE id = $1",
@@ -351,7 +366,7 @@ const addCardToDeck = async (request, response) => {
 
     if (
       createdBy.rows.length === 0 ||
-      createdBy.rows[0].created_by !== request.session.memberid
+      createdBy.rows[0].created_by !== request.member_id
     ) {
       return response.json({
         success: false,
@@ -379,14 +394,6 @@ const deleteCardFromDeck = async (request, response) => {
   const cardID = parseInt(request.params.card_id);
 
   try {
-    // Check if the member is logged in.
-    if (!request.session.memberid) {
-      return response.json({
-        success: false,
-        error: "You must be logged in to remove a card from a deck.",
-      });
-    }
-
     // Check if the deck exists in database and member_id owns that deck.
     const createdBy = await pool.query(
       "SELECT created_by FROM decks WHERE id = $1",
@@ -395,7 +402,7 @@ const deleteCardFromDeck = async (request, response) => {
 
     if (
       createdBy.rows.length === 0 ||
-      createdBy.rows[0].created_by !== request.session.memberid
+      createdBy.rows[0].created_by !== request.member_id
     ) {
       return response.json({
         success: false,
@@ -445,4 +452,5 @@ module.exports = {
   addCardToDeck,
   deleteDeck,
   deleteCardFromDeck,
+  authenticateToken
 };
