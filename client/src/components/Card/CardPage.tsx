@@ -5,15 +5,13 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import { ICard } from "../Interfaces/ICard";
 import "./Card.Page.css";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
-import './Card.Page.css'
 
 interface Props {
   card?: ICard;
@@ -127,7 +125,6 @@ function CardPage({ card: defaultCard }: Props) {
           <div className="card-image">
             <img src={card?.image_uris?.normal} alt={card?.name} />
             <div className="card-name">
-
               <h2>{card?.name}</h2>
               <h3>{card?.set_name}</h3>
             </div>
@@ -167,16 +164,18 @@ function CardPage({ card: defaultCard }: Props) {
                   <strong>Language: </strong> {card?.lang}
                 </li>
                 <div className="keywords">
+                  <strong>Keywords: </strong>
                   {card?.keywords.map((keyword) => {
                     return (
                       <span key={keyword} className="keyword">
-                        <strong>Keywords: </strong> {keyword}
+                      {keyword } 
                       </span>
                     );
                   })}
                 </div>
               </ul>
-              Your Decks
+              <h4>Your Decks</h4>
+              <div id="deck-container">
               <select
                 value={selectValue}
                 onChange={handleChange}
@@ -199,19 +198,27 @@ function CardPage({ card: defaultCard }: Props) {
               <button onClick={AddToDeck} type="button" className="add-to-deck">
                 Add to Deck
               </button>
+              </div>
             </div>
-
           </div>
-            
-            <button type="submit" className="add-to-deck">Add to Deck</button>
+          <div className="price-details">
+            <h3>Card Pricing</h3>
+                <div className="price-container">
+              <ul className="list-details">
+                <li><strong>USD: </strong>$ {card?.prices.usd}</li>
+                <li><strong>EUR: </strong>&euro; {card?.prices.eur}</li>
+                <li><strong>TIX: </strong> {card?.prices.tix}</li>
+              </ul>
           </div>
-          
-          
-          
-
-         
+              <h3>Links to purchase</h3>
+              <ul className="list-details">
+                <li>Tcgplayer.com: <a href={card?.purchase_uris.tcgplayer} target="_blank">buy card</a></li>
+                <li>Cardhoarder.com: <a href={card?.purchase_uris.cardhoarder} target="_blank">buy card</a></li>
+                <li>Cardmarket.com: <a href={card?.purchase_uris.cardmarket} target="_blank">buy card</a></li>
+              </ul>
+          </div>
         </div>
-      
+      </div>
     </main>
   );
 }

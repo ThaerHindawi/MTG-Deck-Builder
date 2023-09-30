@@ -11,6 +11,7 @@
 }
 
 .card-name {
+  max-width: 20em;
   text-align: center;
   color: var(--light-gray);
 }
@@ -24,7 +25,6 @@
 }
 .detail-container {
   height: 100%;
-  margin-top: 1em;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -53,9 +53,9 @@
 
 .add-to-deck {
   background-image: linear-gradient(var(--light-green), var(--dark-green));
-  margin-top: 2em;
+  margin-top: 1em;
   border: none;
-  width: 100%;
+  width: 95%;
 }
 
 .add-to-deck:hover {
@@ -69,3 +69,42 @@
 strong {
   color: var(--dark-green);
 }
+
+.price-container li{
+  display: block;
+  border-bottom: 1px dotted white;
+  padding: 4px 0 4px 10px;
+}
+
+.price-details li {
+  display: block;
+  border-bottom: 1px dotted white;
+  padding: 4px 10px;
+}
+.price-details li:nth-child(odd) {
+  background-color: var(--mid-gray);
+}
+
+#deck-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: .75em;
+  }
+
+  #decks{
+    height: 1.5em;
+    padding-left: .5em;
+    font-size: 1em;
+    line-height: 0;
+    border: 1px solid var(--light-gray);
+    border-radius: 10px;
+    box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+    inset 2px 2px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .keyword {
+    display: inline-block;
+    margin-right: 8px;
+  }
