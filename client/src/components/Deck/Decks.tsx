@@ -9,6 +9,7 @@ interface IDeck {
   id: number;
   deck_name: string;
   created_by: number;
+  views: number;
   date_created: number;
 }
 
@@ -58,6 +59,7 @@ function Decks() {
             <th>Deck Id</th>
             <th>Deck Name</th>
             <th>Date created</th>
+            <th>Views</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -73,6 +75,9 @@ function Decks() {
                 </td>
                 <td>
                   {new Date(deck.date_created * 1000).toLocaleDateString()}
+                </td>
+                <td>
+                  {deck.views.toString()}
                 </td>
                 <td>
                   {decodedToken?.member_id === deck.created_by && (

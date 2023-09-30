@@ -1,5 +1,9 @@
 const Pool = require("pg").Pool;
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+
+// bcrypt password hashing.
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync(10);
 
 const ACCESS_TOKEN_SECRET = 'Sq94mB%JK3tguq@e3J!Atyca6@fs&fVR';
 
@@ -34,6 +38,8 @@ pool.query(
 
 pool.query('ALTER TABLE IF EXISTS "members" ADD UNIQUE ("username");');
 
+pool.query('ALTER TABLE "decks" ADD COLUMN IF NOT EXISTS "views" integer NOT NULL DEFAULT 0;');
+
 // TOKEN FUNCTIONS
 
 const authenticateToken = async (request, response, next) => {
@@ -58,10 +64,15 @@ const authenticateToken = async (request, response, next) => {
 // MEMBER FUNCTIONS
 
 const logged_in = async (request, response) => {
-  if (request.session.memberid) {
-    return response.json({ loggedIn: true, user: {id: request.session.memberid, username: request.session.username} })
-  }
-  return response.json({ loggedIn: false, user: {} })
+  const authHeader = request.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  
+  console.log(token)
+  if (token === null) return response.status(401).json({ loggedIn: false });
+  jwt.verify(token, ACCESS_TOKEN_SECRET, (error, user) => {
+    if (error) return response.status(403).json({ loggedIn: false });
+    return response.json({ loggedIn: true });
+  });
 };
 
 const getMembers = async (request, response) => {
@@ -84,7 +95,6 @@ const getMembers = async (request, response) => {
 const getMemberByID = async (request, response) => {
   try {
     const memberID = parseInt(request.params.member_id);
-
     // Verify that a valid deck ID was supplied.
     if (isNaN(memberID)) {
       return response.status(400).json({
@@ -109,7 +119,10 @@ const getMemberByID = async (request, response) => {
 };
 
 const registerUser = async (request, response) => {
-  const { username, password, confirm_password } = request.body;
+  let { username, password, confirm_password } = request.body;
+
+  username = username.toLowerCase();
+  const passwordHash = bcrypt.hashSync(password, 10);
 
   try {
     // check if already username exists in database.
@@ -143,7 +156,7 @@ const registerUser = async (request, response) => {
     const dateRegistered = Math.floor(Date.now() / 1000);
     await pool.query(
       "INSERT INTO members (username, password, date_registered) VALUES ($1, $2, $3)",
-      [username.toLowerCase(), password, dateRegistered]
+      [username.toLowerCase(), passwordHash, dateRegistered]
     );
     response.status(200).json({
       success: true,
@@ -158,7 +171,10 @@ const registerUser = async (request, response) => {
 };
 
 const authenticateUser = async (request, response) => {
-  const { username, password } = request.body;
+  let { username, password } = request.body;
+
+  username = username.toLowerCase();
+
   try {
     // check if the username exists and the password is correct
     const result = await pool.query(
@@ -166,11 +182,11 @@ const authenticateUser = async (request, response) => {
       [username]
     );
 
-    if (result.rows.length === 0 || result.rows[0].password != password) {
+    if (result.rows.length === 0 ||  !bcrypt.compareSync(password, result.rows[0].password)) {
       return response.json({ success: false, error: "Incorrect Password." });
     }
 
-    const accessToken = jwt.sign({ member_id: result.rows[0].id, username: username}, ACCESS_TOKEN_SECRET, { expiresIn: '120s'});
+    const accessToken = jwt.sign({ member_id: result.rows[0].id, username: username}, ACCESS_TOKEN_SECRET, { expiresIn: '12000000s'});
     response.json({ success: true, access_token: accessToken });
 
   } catch (error) {
@@ -201,6 +217,7 @@ const getDecks = async (request, response) => {
 const getDeckByID = async (request, response) => {
   try {
     const deckID = parseInt(request.params.deck_id);
+    console.log(request.params.deck_id)
 
     // Verify that a valid deck ID was supplied.
     if (isNaN(deckID)) {
@@ -263,8 +280,8 @@ const createDeck = async (request, response) => {
     // Insert deck into database.
     const dateCreated = Math.floor(Date.now() / 1000);
     const result = await pool.query(
-      "INSERT INTO decks (created_by, deck_name, date_created) VALUES ($1, $2, $3)",
-      [request.member_id, deck_name, dateCreated]
+      "INSERT INTO decks (created_by, deck_name, date_created, views) VALUES ($1, $2, $3, $4)",
+      [request.member_id, deck_name, dateCreated, 0]
     );
     response
       .status(200)
@@ -331,6 +348,18 @@ const getCardsByDeckID = async (request, response) => {
     const results = await pool.query("SELECT * FROM cards where deck_id = $1", [
       deckID,
     ]);
+
+
+    try {
+      // increment deck's view count by 1.
+      const query = await pool.query(
+        "UPDATE decks SET views = views + 1 WHERE id = $1",
+        [deckID]
+      );
+    } catch (error) {
+      console.error(error);
+      response.status(500).json({ error: "Internal Server Error" });
+    }
 
     // Deck does not contain any cards or deck does not exist.
     if (results.rows.length === 0) {

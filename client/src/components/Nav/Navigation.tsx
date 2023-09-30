@@ -6,14 +6,14 @@ import { useContext, useState } from "react";
 import { isLoggedInContext } from "../../hooks/useIsLoggedIn";
 
 export default function Navigation() {
-    const [isLogout, setIsLogout] = useState<Boolean>(false);
-    const {token, setToken} = useContext<IToken>(isLoggedInContext)
+  const [isLogout, setIsLogout] = useState<Boolean>(false);
+  const { token, setToken } = useContext<IToken>(isLoggedInContext);
   function logout() {
     localStorage.removeItem("token");
     setIsLogout(true);
     window.location.reload();
   }
-  console.log("token: " + token)
+  console.log("token: " + token);
   return (
     <header className="header">
       <div className="logo-wrapper">
@@ -50,9 +50,14 @@ export default function Navigation() {
               </li>
             </>
           ) : (
-            <li onClick={logout}>
-              <NavLink to="/login"><button className="btn-logout">Logout</button></NavLink>
-            </li>
+            <>
+              <li className="nav-item">
+                <NavLink to="/decks/new">Add Deck</NavLink>
+              </li>
+              <li onClick={logout} className="nav-item">
+                <NavLink to="/login">logout</NavLink>
+              </li>
+            </>
           )}
         </ul>
       </nav>

@@ -15,12 +15,12 @@ function Search() {
   );
 
   const API_URL = (query: string = "", pageNumber: number = 1) => {
-    return `https://api.scryfall.com/cards/search?format=json&order=name&page=${pageNumber}&q=${query}`;
+    return `https://api.scryfall.com/cards/search?format=json&order=name&page=${pageNumber}&q=${encodeURIComponent(query)}`;
   };
 
   useEffect(() => {
     fetchCardsHandler();
-  }, []);
+  }, [pageNumber]);
 
   async function fetchCardsHandler() {
     try {
@@ -41,7 +41,7 @@ function Search() {
 
   return (
     <>
-     {cards?.cards ? <CardsPage cards={cards} /> : <p>No cards In This Page</p>} 
+     {cards?.cards ? <CardsPage cards={cards} searchParams= {searchParams} setSearchParams={setSearchParams} /> : <p>No cards In This Page</p>} 
     </>
   );
 }
