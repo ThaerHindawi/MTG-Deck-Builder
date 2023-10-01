@@ -61,3 +61,14 @@
     height: 100%;
     object-fit: cover;
 }
+
+.search_results {
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    margin: 6rem 0;
+}
+
+.search_results table {
+    width: 400px;
+}

@@ -6,6 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Home.css";
 import { ICard } from "../Interfaces/ICard";
 import Loader from "../Loader/Loader";
+import PrivateFetch from "../../services/PrivateFetch";
+
+interface searchRequest {
+  id?: number;
+  input: string;
+  count?: number;
+}
 
 function Home() {
   const [query, setQuery] = useState("");
@@ -13,6 +20,10 @@ function Home() {
   const search = useRef(null);
   const [cards, setCards] = useState<ICard[]>();
   const [isLoading, setIsLoading] = useState(true);
+
+  const [searchResult, setSearchResult] = useState<searchRequest[]>();
+  const [top10Searches, setTop10Searches] = useState<searchRequest[]>();
+
   function searchCard(e: FormEvent) {
     e.preventDefault();
     console.log(query);
@@ -34,6 +45,16 @@ function Home() {
     navigate(`/card/${data.id}`);
   }
 
+  async function getSearchRequests() {
+    const res = await PrivateFetch("GET", "search/requests", null);
+    setSearchResult(res);
+  }
+
+  async function getTop10Searches() {
+    const res = await PrivateFetch("GET", "search/top10", null);
+    setTop10Searches(res);
+  }
+
   useEffect(() => {
     let randoms: Promise<ICard>[] = [];
     for (let i = 0; i < 5; i++) {
@@ -43,11 +64,14 @@ function Home() {
       setCards(values);
       setIsLoading(false);
     });
+
+    getSearchRequests();
+    getTop10Searches();
   }, []);
 
   return (
     <main>
-      {isLoading? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className="wrapper">
@@ -82,6 +106,44 @@ function Home() {
                 );
               }
             })}
+          </div>
+
+          <div className="search_results">
+            <table className="decks-table">
+              <thead>
+                <tr>
+                  <th>Last Search Results</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchResult?.map((result) => {
+                  return (
+                    <tr key={result.id}>
+                      <td><Link to={`/search?q=${result.input}`}>{result.input}</Link></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+
+            <table className="decks-table">
+              <thead>
+                <tr>
+                  <th>TOP 10 Searches</th>
+                  <th>Search Count</th>
+                </tr>
+              </thead>
+              <tbody>
+                {top10Searches?.map((result) => {
+                  return (
+                    <tr key={10 * Math.random() * Math.random()}>
+                      <td><Link to={`/search?q=${result.input}`}>{result.input}</Link></td>
+                      <td><Link to={`/search?q=${result.input}`}>{result?.count}</Link></td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </div>
       )}
