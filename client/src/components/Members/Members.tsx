@@ -30,26 +30,22 @@ function Members() {
     setMembers(res);
   }
 
-    return (
-      <div className="wrapper">
-        <section className="container">
-          <h2 className="members-title">Site Members</h2>
-        <div className="cards-member">
-          {members?.map((member) => {
-            return (
-              <div className="card-member" id={member.id + ""} key={member.id}>
-                <Link to={`/decks/member/${member.id}`}>
-                  <img src="https://storage.googleapis.com/archidekt-card-images/ltc/dd4a00ff-2206-4e12-a0ab-61ed82c9e6c5_art_crop.jpg" alt={member.username} />
-                  <h2>{member.username}</h2>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-      
-    </div>
-    );
+  return (
+    <section className="container">
+      <div className="cards-member">
+        {members?.map((member) => {
+          return (
+            <div className="card-member" id={member.id + ""} key={member.id}>
+              <Link to={`/decks/member/${member.id}`}>
+                <img src={randomImages[Math.floor(Math.random() * 10)]} alt={member.username} />
+                <h2>{member.username}</h2>
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 
 export default Members;
