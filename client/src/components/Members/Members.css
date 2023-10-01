@@ -1,0 +1,25 @@
+.cards-member {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5px;
+}
+
+.card-member {
+    position: relative;
+    border-radius: 10px;
+    width: 24.5%;
+    margin-bottom: 4rem;
+}
+
+.card-member h2 {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.card-member img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

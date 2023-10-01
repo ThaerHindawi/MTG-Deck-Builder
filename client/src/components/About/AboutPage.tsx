@@ -18,7 +18,7 @@ const developers = [
         socialLinks: [
             { name: "LinkedIn", link: "https://www.linkedin.com/in/dmcelroy1985/" },
             { name: "Github", link: "https://github.com/Dmcelroy85" },
-            { name: "Portfolio", link: "Derek-McElroy.com" },
+            { name: "Portfolio", link: "https://Derek-McElroy.com" },
         ],
     },
     {
