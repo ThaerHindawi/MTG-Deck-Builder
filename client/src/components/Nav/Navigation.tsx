@@ -26,7 +26,7 @@ export default function Navigation() {
             <NavLink to="/">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/decks">Decks</NavLink>
+            <NavLink to="/decks" end>Decks</NavLink>
           </li>
           <li className="nav-item">
             <NavLink to="/sets">Sets</NavLink>
