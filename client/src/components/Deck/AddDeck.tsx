@@ -82,7 +82,7 @@ function AddDeck() {
       <div className="add-deck-container">
         <div className="form-group">
         <form onSubmit={submit}>
-        <h2>Create New Deck</h2>
+        <h2>:Create New Deck:</h2>
             <label>Deck Name</label>
             <input
               type="text"
