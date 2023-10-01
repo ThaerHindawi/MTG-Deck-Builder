@@ -52,7 +52,7 @@ export default function Navigation() {
                 <NavLink to="/decks/new">Add Deck</NavLink>
               </li>
               <li onClick={logout} className="nav-item">
-                <NavLink to="/login">logout</NavLink>
+                <NavLink to="/login">Logout</NavLink>
               </li>
             </>
           )}

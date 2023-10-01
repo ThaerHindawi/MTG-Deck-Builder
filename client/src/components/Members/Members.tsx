@@ -19,7 +19,9 @@ function Members() {
     }
 
     return (
+      <div className="wrapper">
         <section className="container">
+          <h2 className="members-title">Site Members</h2>
         <div className="cards-member">
           {members?.map((member) => {
             return (
@@ -33,6 +35,8 @@ function Members() {
           })}
         </div>
       </section>
+      
+    </div>
     );
 }
 
