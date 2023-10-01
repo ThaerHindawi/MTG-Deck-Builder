@@ -116,7 +116,7 @@ function Home() {
                 </tr>
               </thead>
               <tbody>
-                {searchResult?.map((result) => {
+                {searchResult?.length && searchResult?.map((result) => {
                   return (
                     <tr key={result.id}>
                       <td><Link to={`/search?q=${result.input}`}>{result.input}</Link></td>
@@ -134,7 +134,7 @@ function Home() {
                 </tr>
               </thead>
               <tbody>
-                {top10Searches?.map((result) => {
+                {searchResult?.length && top10Searches?.map((result) => {
                   return (
                     <tr key={10 * Math.random() * Math.random()}>
                       <td><Link to={`/search?q=${result.input}`}>{result.input}</Link></td>
