@@ -38,10 +38,9 @@ app.post("/members/authenticate", database.authenticateUser);
 app.post("/decks/new", database.authenticateToken, database.createDeck);
 app.post("/decks/:deck_id/add", database.authenticateToken, database.addCardToDeck);
 
-app.get("/auth/logout", (request, response) => {
-  request.session.destroy();
-  response.redirect("/");
-});
+app.get("/search/requests", database.getSearchRequests);
+app.get("/search/top10", database.getPopularSearchRequests);
+app.post("/search/save", database.saveSearchRequest);
 
 app.listen(8080, () => {
   console.log(`Server is running on port 8080.`);
