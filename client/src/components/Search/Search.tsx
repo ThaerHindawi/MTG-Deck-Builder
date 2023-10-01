@@ -3,6 +3,7 @@ import CardsPage from "../Card/CardsPage";
 import { useSearchParams } from "react-router-dom";
 import { ICards } from "../Interfaces/ICards";
 import Loader from "../Loader/Loader";
+import PrivateFetch from "../../services/PrivateFetch";
 
 function Search() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -35,6 +36,9 @@ function Search() {
 
   async function fetchCardsHandler() {
     try {
+      await PrivateFetch("POST", "search/save", {
+        input: query
+      });
       const res = await fetch(API_URL(query, pageNumber));
       const data = await res.json();
       const transformedCards: ICards = {
