@@ -38,3 +38,26 @@
     display: block;
     color: white;
 }
+
+
+.home-cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 5px;
+    justify-content: center;
+}
+
+
+.home-card {
+    position: relative;
+    border-radius: 10px;
+    width: 15%;
+}
+
+.home-card img {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

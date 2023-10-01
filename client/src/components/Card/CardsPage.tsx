@@ -33,6 +33,9 @@ function CardsPage({ cards, searchParams, setSearchParams }: Props) {
   // console.log(cards?.cards[0].image_uris.large)
   return (
     <section className="container">
+      <hr />
+      <p>{cards?.total_cards} Cards found in search result</p>
+      <hr />
       <div className="cards">
         {cards?.cards.map((card) => {
           if (card.image_uris?.normal) {

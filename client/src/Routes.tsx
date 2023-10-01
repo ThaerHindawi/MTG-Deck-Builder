@@ -14,17 +14,16 @@ import CardsPage from "./components/Card/CardsPage";
 import CardPage from "./components/Card/CardPage";
 import Register from "./components/User/Register";
 import API_LOCAL_URL from "./Utils/API_URL";
-import { checkLogin } from "./services/checkLogin";
 import { AuthProvider, isLoggedInContext } from "./hooks/useIsLoggedIn";
 import AddDeck from "./components/Deck/AddDeck";
 import Decks from "./components/Deck/Decks";
 import Navigation from "./components/Nav/Navigation";
-import useToken from "./services/useToken";
 import { useJwt } from "react-jwt";
 import Members from "./components/Members/Members";
 import Member from "./components/Members/Member";
 import FindCards from "./components/Deck/FindCards";
-import ContactPage from "./components/Contact/ContactPage";
+import Sets from "./components/Sets/Sets";
+import AboutPage from "./components/About/AboutPage";
 
 type Props = {};
 
@@ -51,8 +50,7 @@ const Routes = (props: Props) => {
     localStorage.removeItem("token");
     localToken = null;
   }
-  // console.log(username)
-  // const { token, setToken } = useToken();
+ 
 
   return (
     <Router>
@@ -72,7 +70,8 @@ const Routes = (props: Props) => {
       <Route path="members" element={<Members />} />
       <Route path="members/:id" element={<Member />} />
       <Route path="decks/:id/cards" element={<FindCards />} />
-      <Route path="contact" element={<ContactPage />} />
+      <Route path="sets" element={<Sets />} />
+      <Route path="about" element={<AboutPage />} />
 
       <Route
         path="login"

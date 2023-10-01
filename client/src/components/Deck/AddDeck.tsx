@@ -1,10 +1,10 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import API_LOCAL_URL from "../../Utils/API_URL";
-import { checkLogin } from "../../services/checkLogin";
 import { useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
 import "./decks.css"
+import { ToastContainer, toast } from "react-toastify";
 
 function AddDeck() {
   const { isExpired } = useJwt(localStorage.getItem("token") || "");
@@ -13,7 +13,7 @@ function AddDeck() {
     deck_name: "",
   });
 
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -21,13 +21,30 @@ function AddDeck() {
 
     console.log(res);
     if (res.success) {
-      setMessage(res.message);
+      toast.success(`Deck ${formData.deck_name} has been added successfully`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } else {
-      setMessage(res.error);
+      toast.error(res.error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
 
-    formData.deck_name = "";
-    setFormData(formData);
+    setFormData({deck_name: ""});
   }
 
   function checkExpiredToken() {
@@ -50,7 +67,18 @@ function AddDeck() {
 
   return (
     <div className="wrapper">
-      {<p>{message}</p>}
+       <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="add-deck-container">
         <div className="form-group">
         <form onSubmit={submit}>

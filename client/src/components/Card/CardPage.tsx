@@ -12,6 +12,7 @@ import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../Loader/Loader";
 
 interface Props {
   card?: ICard;
@@ -45,14 +46,17 @@ function CardPage({ card: defaultCard }: Props) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     reEvaluateToken(token || "");
-    fetchMoviesHandler();
+    fetchCardHandler();
   }, []);
 
-  async function fetchMoviesHandler() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function fetchCardHandler() {
     const res = await fetch(`https://api.scryfall.com/cards/${CARD_ID}`);
     const data = await res.json();
     const transformedCard: ICard = data;
     setCard(transformedCard);
+    setIsLoading(false);
   }
 
   async function fetchUserDecks() {
@@ -120,6 +124,9 @@ function CardPage({ card: defaultCard }: Props) {
         pauseOnHover
         theme="light"
       />
+      {isLoading? (
+        <Loader />
+      ) : (
       <div className="card-profile">
         <div className="card-profile__flex">
           <div className="card-image">
@@ -212,13 +219,14 @@ function CardPage({ card: defaultCard }: Props) {
           </div>
               <h3>Links to purchase</h3>
               <ul className="list-details">
-                <li>Tcgplayer.com: <a href={card?.purchase_uris.tcgplayer} target="_blank">buy card</a></li>
-                <li>Cardhoarder.com: <a href={card?.purchase_uris.cardhoarder} target="_blank">buy card</a></li>
-                <li>Cardmarket.com: <a href={card?.purchase_uris.cardmarket} target="_blank">buy card</a></li>
+                <li>Tcgplayer.com: <a href={card?.purchase_uris?.tcgplayer} target="_blank">buy card</a></li>
+                <li>Cardhoarder.com: <a href={card?.purchase_uris?.cardhoarder} target="_blank">buy card</a></li>
+                <li>Cardmarket.com: <a href={card?.purchase_uris?.cardmarket} target="_blank">buy card</a></li>
               </ul>
           </div>
         </div>
       </div>
+      )}
     </main>
   );
 }

@@ -1,0 +1,43 @@
+.sets-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.table-header th {
+    text-transform: uppercase;
+    padding: 0 1em;
+}
+.set-icon {
+    width: 1.5rem;
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(229deg) brightness(106%) contrast(108%);
+    margin-right: 12px;
+}
+
+.name-col {
+    padding-left: 2em;
+    text-align: left;
+}
+
+.set-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sets {
+    display: flex;
+    justify-content: center;
+    min-width: 320px;
+    min-height: 80vh;
+    padding: 1rem;
+}
+
+.sets-table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
+}

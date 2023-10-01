@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useJwt } from "react-jwt";
 import "./decks.css"
+import { ToastContainer, toast } from "react-toastify";
 
 interface IDeck {
   id: number;
@@ -21,11 +22,11 @@ function Decks() {
   const { decodedToken, isExpired, reEvaluateToken } = useJwt<User>(
     token || ""
   );
+  const [deletedId, setDeletedId] = useState<number>();
   const navigate = useNavigate();
-  console.log(location.pathname);
   useEffect(() => {
     handleFetchDecks();
-  }, [messageDeckDeleted]);
+  }, [messageDeckDeleted, deletedId]);
 
   async function handleFetchDecks() {
     const res = await PrivateFetch("GET", location.pathname, null);
@@ -47,11 +48,34 @@ function Decks() {
       return;
     }
     const res = await PrivateFetch("GET", `/decks/${id}/delete`, null);
-    setMessageDeckDeleted(res.message);
+    // setMessageDeckDeleted(`${deck_name} has been deleted`);
+    setDeletedId(id);
+    toast.success(`${deck_name} has been deleted successfully`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
   return (
     <div className="wrapper">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <p>{messageDeckDeleted}</p>
       <table className="decks-table">
         <thead>
@@ -60,7 +84,9 @@ function Decks() {
             <th>Deck Name</th>
             <th>Date created</th>
             <th>Views</th>
+            {decodedToken?.member_id && (
             <th>Delete</th>
+            )}
           </tr>
         </thead>
         <tbody>
