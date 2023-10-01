@@ -50,9 +50,8 @@ function Login() {
     <div className="form-container">
         <p>{isLoggedInError}</p>
         <form onSubmit={submit}>
-            {/* <legend>Member Login</legend> */}
             <div className="form-group">
-            <h2>Login</h2>
+            <h2>:Login:</h2>
             <label>Username</label>
             <input
               type="text"

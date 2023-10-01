@@ -54,7 +54,7 @@ function Register() {
       {<p>{registrationError}</p>}
       <form onSubmit={submit}>
           <div className="form-group">
-            <h2>Register</h2>
+            <h2>:Register:</h2>
             <label>Username</label>
             <input
               type="text"
