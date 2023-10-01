@@ -37,9 +37,6 @@ export default function Navigation() {
           <li className="nav-item">
             <NavLink to="/about">About</NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/contact">Contact</NavLink>
-          </li>
           {(!token && !localStorage.getItem("token")) || isLogout ? (
             <>
               <li className="nav-item">
