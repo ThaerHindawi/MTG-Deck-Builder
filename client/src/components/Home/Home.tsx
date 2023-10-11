@@ -91,7 +91,7 @@ function Home() {
           </form>
 
           <button onClick={handleRandomCard} className="btn" type="button">
-            Random
+            Random Card
           </button>
 
           <div className="home-cards">

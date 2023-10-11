@@ -7,7 +7,7 @@
     line-height: 1.25;
     margin: 0;
     width: 100%;
-    padding: 12px 14px 12px 66px;
+    padding: 12px 14px 12px 20px;
     font-size: 2rem;
 }
 
@@ -21,6 +21,7 @@
     display: block;
     position: absolute;
     top: 0%;
+    right: 0%;
     z-index: 500;
     padding: 2px;
     height: 100%;
