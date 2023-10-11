@@ -3,6 +3,7 @@ form {
 }
 
 .form-container {
+    background-color: var(--dark-table);
     border-radius: 12px;
     padding: 40px 40px 50px;
     width: 380px;

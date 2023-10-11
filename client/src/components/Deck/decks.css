@@ -14,10 +14,11 @@ th {
 }
 tr {
     height: 70px;
+    background-color: var(--dark-table);
     border-top: 1px dotted #fff;
 }
 tr:nth-child(odd) {
-    background-color: var(--mid-gray);
+    background-color: var(--mid-table);
 }
 td {
     text-align: center;

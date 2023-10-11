@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-
+import mtgLogo from "../../assets/mtg-logo.png"
 import "./nav-style.css";
 import PrivateFetch from "../../services/PrivateFetch";
 import { useContext, useState } from "react";
@@ -16,9 +16,10 @@ export default function Navigation() {
   console.log("token: " + token);
   return (
     <header className="header">
+      
       <div className="logo-wrapper">
+       <img src={mtgLogo} alt="MTG Deck Builder logo" className="mtg-logo"/>
         <h2 className="header-logo">MTG Deck Builder</h2>
-        <h3>version 1.0</h3>
       </div>
       <nav className="site-nav">
         <ul className="nav-list">

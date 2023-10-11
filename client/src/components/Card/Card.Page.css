@@ -4,6 +4,10 @@
   margin: 0 auto;
   padding: 1.5em;
   width: 1280px;
+  border-radius: 1em;
+  background-color: var(--dark-table);
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.05),
+    5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .card-profile__flex {

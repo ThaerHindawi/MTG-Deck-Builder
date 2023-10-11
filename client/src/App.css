@@ -10,6 +10,8 @@
   --dark-gray: #222629;
   --mid-gray: #2b2d2e;
   --light-gray: #6b6e70;
+  --dark-table: hsla(195, 9%, 9%, 0.9);
+  --mid-table: hsla(180, 3%, 13%, 0.9);
   font-size: 18px;
 }
 
@@ -45,6 +47,10 @@
   color: #888;
 }
 
+body {
+  background-image: url("../src/assets/mtg-bg.jpg");
+  background-attachment: fixed;
+}
 
 .spinner {
   animation: rotate 2s linear infinite;
